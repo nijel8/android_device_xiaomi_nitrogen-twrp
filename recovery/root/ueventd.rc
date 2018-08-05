@@ -54,6 +54,11 @@ subsystem sound
 /dev/hwbinder             0666   root       root
 /dev/vndbinder            0666   root       root
 
+#spi ir nodes
+/dev/lirc0                 0660   system       system
+# Anyone can read the logs, but if they're not in the "logs"
+# group, then they'll only see log entries for their UID.
+/dev/log/*                0666   root       log
 /dev/pmsg0                0222   root       log
 
 # the msm hw3d client device node is world writable/readable.
