@@ -1,0 +1,90 @@
+#!/sbin/sh
+
+finish() {
+  cd /
+  rm -rf /tmp/twrp_persist
+  MSG="- $1... Done"
+  echo -e "I:TWRP-Persist: $MSG" >> /tmp/recovery.log
+  exit 0
+}
+
+abort() {
+  MSG="$1"
+  echo -e "E:TWRP-Persist: $MSG" >> /tmp/recovery.log
+  exit 1
+}
+
+is_mounted() {
+  cat /proc/mounts | grep -q " `readlink -f $1` " 2>/dev/null
+  return $?
+}
+
+store_boot_sha1() {
+    echo "- Storing new boot sha1"
+    sha1boot=`magiskboot --sha1 "$BOOTIMAGE"`
+    if [ -f /sdcard/TWRP/.twrps ]; then
+        echo "$sha1boot" > /sdcard/TWRP/.sha1boot
+    fi
+    echo "$sha1boot" > /persist/.sha1boot
+}
+
+remove_service() {
+    for rc in *.rc; do
+      grep -q "^[[:space:]]*\(service\|start\|stop\|restart\)[[:space:]]\+$1\b" "$rc" || continue
+      echo "Found service $1 in $rc. Commenting it out..."
+        found=$rc
+        awk -vsc_name="$1" '
+            !NF || $1 ~ /^#/ { print; next }
+            $1 == "service" || $1 == "on" { in_sc = 0 }
+            $1 == "service" && $2 == sc_name { in_sc = 1 }
+            in_sc || ($2 == sc_name && ($1 == "start" || $1 == "stop" || $1 == "restart")) { printf "#" }
+            { print }
+        ' "$rc" > "$rc-"
+        cat "$rc-" > "$rc"
+        rm -f "$rc-"
+    done
+}
+
+BOOTIMAGE=`readlink -f /dev/block/bootdevice/by-name/boot`
+[ -e "$BOOTIMAGE" ] || abort "! $BOOTIMAGE does not exist!"
+
+is_mounted /persist || mount /persist
+
+if [ -f /sdcard/TWRP/.sha1boot ]; then
+    sha1boot_store=`cat /sdcard/TWRP/.sha1boot`
+elif [ -f /persist/.sha1boot ]; then
+    sha1boot_store=`cat /persist/.sha1boot`
+else
+    sha1boot_store=none
+fi
+
+sha1boot=`magiskboot --sha1 "$BOOTIMAGE"`
+
+if [ ! "$sha1boot" = "$sha1boot_store" ]; then
+    if [ -d /tmp/twrp_persist ]; then
+        rm -rf /tmp/twrp_persist
+    fi
+    mkdir /tmp/twrp_persist
+    cd /tmp/twrp_persist
+
+    echo "- Unpacking boot image $BOOTIMAGE"
+    magiskboot --unpack "$BOOTIMAGE" || abort "! Unable to unpack boot image!"
+
+    echo "- Removing flash_recovery service if exists"
+    magiskboot --cpio ramdisk.cpio "extract"
+    found=true
+    remove_service flash_recovery
+    $found && store_boot_sha1 && finish "flash_service not found"
+    magiskboot --cpio ramdisk.cpio "rm $found"
+    magiskboot --cpio ramdisk.cpio "add 644 $found $found"
+
+    echo "- Repacking boot image"
+    magiskboot --repack "$BOOTIMAGE" || abort "! Unable to repack boot image!"
+
+    echo "- Flashing new boot image"
+    flash_image "$BOOTIMAGE" new-boot.img || abort "! Insufficient partition size"
+
+    store_boot_sha1 && finish "TWRP persisted"
+else
+    finish "TWRP already persists"
+fi
