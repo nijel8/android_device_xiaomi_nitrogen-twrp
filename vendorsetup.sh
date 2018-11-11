@@ -1,2 +1,1 @@
-add_lunch_combo omni_nitrogen-eng
-add_lunch_combo omni_nitrogen-userdebug
+add_lunch_combo lineage_nitrogen-eng

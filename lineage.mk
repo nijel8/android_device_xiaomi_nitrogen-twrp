@@ -14,5 +14,24 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_nitrogen.mk
+$(call inherit-product, build/target/product/embedded.mk)
+
+# Inherit from CM custom product configuration
+$(call inherit-product, vendor/lineage/config/common.mk)
+
+## Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := nitrogen
+PRODUCT_NAME := lineage_nitrogen
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MODEL := Xiaomi Mi Max 3
+PRODUCT_MANUFACTURER := Xiaomi
+
+PRODUCT_PACKAGES += \
+	charger_res_images \
+	charger
+
+# enable stock zip packages flash
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.secure=1 \
+    ro.adb.secure=0 \
+    ro.allow.mock.location=0

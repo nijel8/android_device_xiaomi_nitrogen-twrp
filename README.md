@@ -3,7 +3,7 @@ For building TWRP for Xiaomi Mi Max 3 ONLY
 
 To compile
 
-. build/envsetup.sh && lunch omni_nitrogen-eng && make -j8 recoveryimage
+. build/envsetup.sh && lunch lineage_nitrogen-eng && make -j8 recoveryimage
 
 The Mi Max 3 (codenamed _"nitrogen"_) is a high-end mid-range Phablet from Xiaomi.
 
