@@ -29,4 +29,3 @@ Xiaomi Mi Max 3 was  released in July 2018.
 ## Device picture
 
 ![Xiaomi Mi Max 3](https://cdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-mi-max3-3.jpg)
-
