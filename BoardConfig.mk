@@ -106,7 +106,6 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_EXCLUDE_TWRPAPP := true
 
 # Fix userdata decryption
-RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/vdc_pie
 TW_CRYPTO_USE_SYSTEM_VOLD := \
     qseecomd \
     servicemanager \
