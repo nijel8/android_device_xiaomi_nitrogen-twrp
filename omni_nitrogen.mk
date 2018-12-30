@@ -35,4 +35,5 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.adb.secure=0 \
     ro.allow.mock.location=0 \
     ro.product.name=nitrogen \
+    ro.product.device=nitrogen \
     ro.product.mod_device=nitrogen_global
