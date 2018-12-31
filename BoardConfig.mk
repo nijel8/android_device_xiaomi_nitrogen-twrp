@@ -112,10 +112,6 @@ TW_CRYPTO_USE_SYSTEM_VOLD := \
     hwservicemanager \
     keymaster-3-0
 
-# Debugging
 #TW_CRYPTO_SYSTEM_VOLD_DEBUG := /system/bin/strace
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
-
-# For OTA updates
-TARGET_INIT_VENDOR_LIB := libinit_nitrogen
