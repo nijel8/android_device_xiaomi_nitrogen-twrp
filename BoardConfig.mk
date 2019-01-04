@@ -91,7 +91,7 @@ TARGET_SCREEN_HEIGHT := 2160
 
 # TWRP specific build flags
 #RECOVERY_VARIANT := twrp
-TW_DEVICE_VERSION := 3
+TW_DEVICE_VERSION := 4
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
