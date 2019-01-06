@@ -115,3 +115,6 @@ TW_CRYPTO_USE_SYSTEM_VOLD := \
 #TW_CRYPTO_SYSTEM_VOLD_DEBUG := /system/bin/strace
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+
+# Vendor Init
+TARGET_INIT_VENDOR_LIB := libinit_nitrogen
