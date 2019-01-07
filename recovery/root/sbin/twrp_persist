@@ -39,7 +39,8 @@ remove_service() {
     for rc in *.rc; do
       grep -q "^[[:space:]]*\(service\|start\|stop\|restart\)[[:space:]]\+$1\b" "$rc" || continue
       log "Found service $1 in $rc. Commenting it out..."
-        found=$rc
+        found_rc=$rc
+        found=true
         awk -vsc_name="$1" '
             !NF || $1 ~ /^#/ { print; next }
             $1 == "service" || $1 == "on" { in_sc = 0 }
@@ -48,7 +49,8 @@ remove_service() {
             { print }
         ' "$rc" > "$rc-"
         cat "$rc-" > "$rc"
-        rm -f "$rc-"
+        rm -f $rc-
+        break
     done
 }
 
@@ -87,11 +89,11 @@ if [ ! "$sha1boot" = "$sha1boot_store" ]; then
 
     log "- Removing flash_recovery service if exists"
     magiskboot --cpio ramdisk.cpio "extract"
-    found=true
+    found=false
     remove_service flash_recovery
-    $found && store_boot_sha1 && finish "flash_service not found"
-    magiskboot --cpio ramdisk.cpio "rm $found"
-    magiskboot --cpio ramdisk.cpio "add 644 $found $found"
+    ! $found && store_boot_sha1 && finish "flash_service not found"
+    magiskboot --cpio ramdisk.cpio "rm $found_rc"
+    magiskboot --cpio ramdisk.cpio "add 644 $found_rc $found_rc"
 
     log "- Repacking boot image"
     magiskboot --repack "$BOOTIMAGE" || abort "! Unable to repack boot image!"
