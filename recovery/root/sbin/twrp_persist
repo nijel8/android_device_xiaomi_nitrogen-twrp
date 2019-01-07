@@ -30,9 +30,9 @@ store_boot_sha1() {
     log "- Storing new boot sha1"
     sha1boot=`magiskboot --sha1 "$BOOTIMAGE"`
     if [ -f /sdcard/TWRP/.twrps ]; then
-        echo "$sha1boot" > /sdcard/TWRP/.sha1boot
+        echo "$sha1boot" > $sdcard_sha1boot
     fi
-    echo "$sha1boot" > /persist/.sha1boot
+    echo "$sha1boot" > $persist_sha1boot
 }
 
 remove_service() {
@@ -51,6 +51,10 @@ remove_service() {
         rm -f "$rc-"
     done
 }
+
+sdcard_sha1boot=/sdcard/TWRP/.sha1boot
+persist_sha1boot=/persist/TWRP/.sha1boot
+
 log "Starting TWRP Survive routine..."
 
 BOOTIMAGE=`readlink -f /dev/block/bootdevice/by-name/boot`
@@ -58,10 +62,10 @@ BOOTIMAGE=`readlink -f /dev/block/bootdevice/by-name/boot`
 
 is_mounted /persist || mount /persist
 
-if [ -f /sdcard/TWRP/.sha1boot ]; then
-    sha1boot_store=`cat /sdcard/TWRP/.sha1boot`
-elif [ -f /persist/.sha1boot ]; then
-    sha1boot_store=`cat /persist/.sha1boot`
+if [ -f $sdcard_sha1boot ]; then
+    sha1boot_store=`cat $sdcard_sha1boot`
+elif [ -f $persist_sha1boot ]; then
+    sha1boot_store=`cat $persist_sha1boot`
 else
     sha1boot_store=none
 fi
