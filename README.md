@@ -1,31 +1,22 @@
-# android_device_xiaomi_nitrogen
 For building TWRP for Xiaomi Mi Max 3 ONLY
-
-To compile
-
-. build/envsetup.sh && lunch lineage_nitrogen-eng && make -j8 recoveryimage
 
 The Mi Max 3 (codenamed _"nitrogen"_) is a high-end mid-range Phablet from Xiaomi.
 
 Xiaomi Mi Max 3 was  released in July 2018.
 
-## Device specifications
+Basic   | Spec Sheet
+-------:|:-------------------------
+CPU     | Octa-core Qualcomm® Kryo™ 260 processor, up to 1.8GHz
+Chipset | Qualcomm SDM636 Snapdragon™ 636
+GPU     | Qualcomm® Adreno™ 509 Visual Processing  Subsystem
+Memory  | 4/6GB, Dual channel LPDDR4x
+Storage | 64/128GB, eMMC 5.1
+MicroSD | Up to 256GB
+Battery | Non-removable Li-Po 5500 mAh battery
+Display | 1080x2160 pixels, FHD+, 6.9 inches (~350 ppi pixel density)
+Camera  | Primary: AI dual camera 12MP+5MP, f/1.9, Dual Pixel Autofocus, Single-tone dual LED flash
+Camera  | Secondary: 8MP, f/2.0
 
-| Device        |           Xiaomi Mi Max 3                       |
-| -----------:  | :---------------------------------------------- |
-| SoC           | Qualcomm SDM660 Snapdragon 636                  |
-| CPU           | 8x Qualcomm® Kryo™ 260 up to 1.8GHz             |
-| GPU           | Adreno 509                                      |
-| Memory        | 4GB / 6GM RAM (LPDDR4X)                         |
-| Android       | 8.1                                             |
-| Storage       | 64GB eMMC 5.1 flash storage                     |
-| Battery       | Non-removable Li-Po 5500 mAh                    |
-| Dimensions    | 158.6 x 75.4 x 8.05 mm                          |
-| Display       | 2160 x 1080 (18:9), 5.99 inch                   |
-| Rear camera 1 | 12 MP (f/1.9, 1.4µm, dual pixel PDAF)LED flash  | 
-| Rear camera 2 |  5 MP (depth sensor)                            |
-| Front camera  | 8 MP, f/2.0, 1.12µm                             |
-
-## Device picture
-
-![Xiaomi Mi Max 3](https://cdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-mi-max3-3.jpg)
+![Xiaomi Mi Max 3](https://cdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-mi-max3-1.jpg "Xiaomi Mi Max 3 - gold")
+![Xiaomi Mi Max 3](https://cdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-mi-max3-2.jpg "Xiaomi Mi Max 3 - black")
+![Xiaomi Mi Max 3](https://cdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-mi-max3-3.jpg "Xiaomi Mi Max 3 - blue")
