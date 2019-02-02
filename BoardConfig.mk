@@ -111,7 +111,7 @@ TW_CRYPTO_USE_SYSTEM_VOLD := \
     servicemanager \
     hwservicemanager \
     keymaster-3-0
-
+TW_CRYPTO_SYSTEM_VOLD_MOUNT := vendor
 #TW_CRYPTO_SYSTEM_VOLD_DEBUG := /system/bin/strace
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
